@@ -1,0 +1,12 @@
+{
+  "renderingHosts": {
+    "xmcloud": {
+      "path": "./",
+      "nodeVersion": "22",
+      "jssDeploymentType": "serverless",
+      "enabled": true,
+      "buildCommand": "build",
+      "runCommand": "next:start"
+    }
+  }
+}
