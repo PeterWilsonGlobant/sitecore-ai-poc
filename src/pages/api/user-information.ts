@@ -14,8 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const { name, accountNumber, companyName, emirate } = req.body ?? {};
-  const payload = { name, accountNumber, companyName, emirate };
+  const { name, accountNumber, companyName, emirate, email } = req.body ?? {};
+  const payload = { name, accountNumber, companyName, emirate, email };
 
   console.log('User information received:', payload);
 
