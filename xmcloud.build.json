@@ -7,6 +7,14 @@
       "enabled": true,
       "buildCommand": "build",
       "runCommand": "next:start"
+    },
+    "subnextabc-editing-host": {
+      "path": "./",
+      "nodeVersion": "22",
+      "jssDeploymentType": "serverless",
+      "enabled": true,
+      "buildCommand": "build",
+      "runCommand": "next:start"
     }
   }
 }
