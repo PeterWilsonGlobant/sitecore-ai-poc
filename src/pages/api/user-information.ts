@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const SUBSCRIBE_URL =
-  process.env.SUBSCRIBE_API_URL ??
-  'http://sitecoreai-api-demo-gpebh4gudbcfaxbb.westus3-01.azurewebsites.net/api/subscribe';
+// Full URL of the Azure backend, e.g. https://<app>.azurewebsites.net/api/subscribe
+const SUBSCRIBE_URL = process.env.SUBSCRIBE_URL as string;
+// Must match SUBSCRIBE_API_KEY in the Azure App Service
+const SUBSCRIBE_API_KEY = process.env.SUBSCRIBE_API_KEY as string;
 
 /**
  * Receives the User Information form submission, logs it, and forwards
@@ -14,15 +15,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
+  if (!SUBSCRIBE_URL || !SUBSCRIBE_API_KEY) {
+    console.error('SUBSCRIBE_URL or SUBSCRIBE_API_KEY is not configured');
+    return res.status(500).json({ message: 'Server not configured' });
+  }
+
   const { name, accountNumber, companyName, emirate, email } = req.body ?? {};
-  const payload = { name, accountNumber, companyName, emirate, email };
+  const payload = { name, accountNumber, companyName, emirate ,email};
 
   console.log('User information received:', payload);
 
   try {
     const response = await fetch(SUBSCRIBE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': SUBSCRIBE_API_KEY,
+      },
       body: JSON.stringify(payload),
     });
 
