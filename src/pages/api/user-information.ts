@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ message: 'Server not configured' });
   }
 
-  const { name, accountNumber, companyName, emirate, email } = req.body ?? {};
-  const payload = { name, accountNumber, companyName, emirate ,email};
+  const { name, email, companyName, emirate } = req.body ?? {};
+  const payload = { name, email, companyName, emirate };
 
   console.log('User information received:', payload);
 

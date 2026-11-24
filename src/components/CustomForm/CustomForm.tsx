@@ -10,7 +10,7 @@ interface UserInformationFormProps {
 
 type FormValues = {
   name: string;
-  accountNumber: string;
+  email: string;
   companyName: string;
   emirate: string;
 };
@@ -52,7 +52,7 @@ export const UserInformationForm = (props: UserInformationFormProps) => {
 
   const [values, setValues] = useState<FormValues>({
     name: '',
-    accountNumber: '',
+    email: '',
     companyName: '',
     emirate: '',
   });
@@ -69,10 +69,10 @@ export const UserInformationForm = (props: UserInformationFormProps) => {
       nextErrors.name = 'Name must contain alphabetic characters only.';
     }
 
-    if (!nextValues.accountNumber.trim()) {
-      nextErrors.accountNumber = 'Account Number is required.';
-    } else if (!/^[A-Za-z0-9]+$/.test(nextValues.accountNumber.trim())) {
-      nextErrors.accountNumber = 'Account Number must be alphanumeric only.';
+    if (!nextValues.email.trim()) {
+      nextErrors.email = 'Email is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nextValues.email.trim())) {
+      nextErrors.email = 'Please enter a valid email address.';
     }
 
     if (!nextValues.companyName) {
@@ -122,7 +122,7 @@ export const UserInformationForm = (props: UserInformationFormProps) => {
 
       setValues({
         name: '',
-        accountNumber: '',
+        email: '',
         companyName: '',
         emirate: '',
       });
@@ -151,7 +151,7 @@ export const UserInformationForm = (props: UserInformationFormProps) => {
   const errorClasses = 'mt-1 px-4 text-xs font-medium text-red-600';
 
   const nameInputClasses = `${fieldBaseClasses} ${fieldBorderClasses(!!errors.name)}`;
-  const accountInputClasses = `${fieldBaseClasses} ${fieldBorderClasses(!!errors.accountNumber)}`;
+  const emailInputClasses = `${fieldBaseClasses} ${fieldBorderClasses(!!errors.email)}`;
   const companySelectClasses = `${fieldBaseClasses} appearance-none pr-10 ${fieldBorderClasses(!!errors.companyName)}`;
   const emirateSelectClasses = `${fieldBaseClasses} appearance-none pr-10 ${fieldBorderClasses(!!errors.emirate)}`;
 
@@ -256,28 +256,27 @@ export const UserInformationForm = (props: UserInformationFormProps) => {
               <div>
                 <div className="relative">
                   <input
-                    id="accountNumber"
-                    name="accountNumber"
-                    type="text"
-                    inputMode="text"
-                    autoComplete="off"
-                    value={values.accountNumber}
+                    id="email"
+                    name="email"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    value={values.email}
                     onChange={handleChange}
-                    className={accountInputClasses}
+                    className={emailInputClasses}
                     placeholder=" "
-                    aria-invalid={errors.accountNumber ? 'true' : 'false'}
-                    aria-describedby={errors.accountNumber ? 'accountNumber-error' : 'accountNumber-help'}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                    aria-describedby={errors.email ? 'email-error' : 'email-help'}
                     required
-                    pattern="[A-Za-z0-9]+"
                   />
-                  <label htmlFor="accountNumber" className={inputLabelClasses(!!errors.accountNumber)}>
-                    Account Number
+                  <label htmlFor="email" className={inputLabelClasses(!!errors.email)}>
+                    Email
                   </label>
                 </div>
                 {renderHint(
-                  'accountNumber',
-                  'Letters and numbers only, with no spaces or symbols.',
-                  errors.accountNumber
+                  'email',
+                  'Use an address you can receive mail at, e.g. name@example.com.',
+                  errors.email
                 )}
               </div>
 
